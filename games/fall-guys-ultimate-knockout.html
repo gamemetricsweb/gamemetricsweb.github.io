@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fall Guys: Ultimate Knockout</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    .active-link {
+      text-decoration: underline;
+      text-decoration-color: rgb(0, 123, 255);
+    }
+    th { font-size: 14px; }
+    td { font-size: 14px; }
+
+  </style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">GameMetricsWeb</a>
+    </div>
+  </nav>
+
+  <div class="container-md">
+
+    <div class="d-flex justify-content-center my-2">
+      <h3>Fall Guys: Ultimate Knockout</h3>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-1', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Steam players</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-2', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)"">Twitch viewers</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-3', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Reddit subscribers</a>
+                </li>
+              
+            </ul>
+          </div>
+
+          <div class="card-body mx-md-5 px-md-5">
+            
+              <div class="chart" id="chart-1">
+                <h5 class="card-text">Steam players</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(steamChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="steamChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-2">
+                <h5 class="card-text">Twitch viewers</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(twitchChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="twitchChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-3">
+                <h5 class="card-text">Reddit subscribers 
+                  <a href="https://reddit.com/r/FallGuysGame" target="_blank">
+                    r/FallGuysGame  
+                  </a>
+                </h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(redditChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="redditChart"></canvas>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+
+          <div class="card-header">
+            <h5 class="card-text">Metacritic scores</h5>
+          </div>
+
+          
+            <div class="mx-2 mx-lg-5" style="position: relative; height:20vh;">
+              <canvas id="reviewChart"></canvas>
+            </div>
+          
+
+          
+            <div class="mx-2 mx-lg-5">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Average score</th>
+                    <th scope="col">Number of ratings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Critics</th>
+                    <td>80.0/100</td>
+                    <td>25</td>
+                  </tr>
+                  <tr>
+                    <th>Users</th>
+                    <td>73/100</td>
+                    <td>363</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="https://www.metacritic.com/game/pc/fall-guys-ultimate-knockout" target="_blank" style="text-decoration: none;">
+                Read critic reviews
+              </a>       
+            </div>
+          
+   
+
+        </div>
+      </div>
+
+    
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+          <div class="card-header">
+            <h5 class="card-text">Info</h5>
+          </div>
+          <div class="card-body">  
+            <p><h6 style="display: inline">Description: </h6> Fall Guys is a last man standing game where up to 60 players join a match in battle royale-style gameplay and have to qualify for subsequent rounds by accomplishing the goals of various mini-games. </p> 
+            <p><h6 style="display: inline">Tags: </h6> multiplayer, funny, physics, comedy, casual </p> 
+            <p><h6 style="display: inline">Release date: </h6> 2020-08-04 </p> 
+            <p><h6 style="display: inline">Developer: </h6> Mediatonic </p>      
+            <p>
+              <a href="https://store.steampowered.com/app/1097150/Fall_Guys_Ultimate_Knockout/" target="_blank" style="text-decoration: none;">
+                Get Fall Guys: Ultimate Knockout 
+              </a>
+            </p>  
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+
+
+
+</body>
+
+<script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="../js/Chart.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/hammer.min.js" crossorigin="anonymous"></script>
+<script src="../js/chartjs-plugin-zoom.js" crossorigin="anonymous"></script>
+
+<script>
+
+function resetGraph(chartVariable) {
+  chartVariable.options.scales.xAxes[0].ticks.min = null;
+  chartVariable.options.scales.xAxes[0].ticks.max = null;
+  // chartVariable.resetZoom();
+  chartVariable.update();
+}
+
+function openTab(evt, tabcontent_id, tabcontent_classname, tablink_classname) {
+
+  // Get all elements with class "tabcontent_classname" and hide them
+  var tabcontent = document.getElementsByClassName(tabcontent_classname);
+
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class "tablink_classname" and remove the class "active-link"
+  var tablinks = document.getElementsByClassName(tablink_classname);
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active-link");
+  }
+
+  // Show the current tab, and add an "active-link" class to the link that opened the tab
+  document.getElementById(tabcontent_id).style.display = "block";
+  evt.currentTarget.classList.add("active-link");
+}
+
+// Show first chart
+document.getElementsByClassName("chart-link")[0].click();
+
+// Parse chartjs data
+var chartjs_data = JSON.parse('{"twitchChart": {"type": "line", "data": {"datasets": [{"label": "Peak viewers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 244000.0}, {"t": "2020-09-01", "y": 586000.0}, {"t": "2020-08-01", "y": 709000.0}, {"t": "2020-07-01", "y": 251000.0}]}, {"label": "Average viewers", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 16000.0}, {"t": "2020-09-01", "y": 50100.0}, {"t": "2020-08-01", "y": 152000.0}, {"t": "2020-07-01", "y": 33400.0}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2020-07-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "redditChart": {"type": "line", "data": {"datasets": [{"label": "Amount of subscribers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2019-10-01", "y": 8}, {"t": "2019-11-01", "y": 14}, {"t": "2019-12-01", "y": 18}, {"t": "2020-01-01", "y": 47}, {"t": "2020-02-01", "y": 120}, {"t": "2020-03-01", "y": 145}, {"t": "2020-04-01", "y": 153}, {"t": "2020-05-01", "y": 188}, {"t": "2020-06-01", "y": 249}, {"t": "2020-07-01", "y": 670}, {"t": "2020-08-01", "y": 84066}, {"t": "2020-09-01", "y": 185321}, {"t": "2020-10-01", "y": 203186}, {"t": "2020-11-01", "y": 201651}, {"t": "2020-12-01", "y": 198158}, {"t": "2021-01-01", "y": 196315}, {"t": "2021-02-01", "y": 193422}, {"t": "2021-03-01", "y": 191239}, {"t": "2021-04-01", "y": 189729}, {"t": "2021-05-01", "y": 187834}, {"t": "2021-06-01", "y": 186715}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2019-10-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "steamChart": {"type": "line", "data": {"datasets": [{"label": "Peak players", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2021-05-01", "y": 11886}, {"t": "2021-04-01", "y": 16257}, {"t": "2021-03-01", "y": 23065}, {"t": "2021-02-01", "y": 16645}, {"t": "2021-01-01", "y": 20457}, {"t": "2020-12-01", "y": 28612}, {"t": "2020-11-01", "y": 22737}, {"t": "2020-10-01", "y": 83964}, {"t": "2020-09-01", "y": 150587}, {"t": "2020-08-01", "y": 172026}]}, {"label": "Average players", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2021-05-01", "y": 7111.5}, {"t": "2021-04-01", "y": 8662.1}, {"t": "2021-03-01", "y": 9200.5}, {"t": "2021-02-01", "y": 9037.0}, {"t": "2021-01-01", "y": 10945.2}, {"t": "2020-12-01", "y": 13369.8}, {"t": "2020-11-01", "y": 12792.8}, {"t": "2020-10-01", "y": 26438.5}, {"t": "2020-09-01", "y": 66899.5}, {"t": "2020-08-01", "y": 124479.4}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2020-08-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "reviewsChart": {"type": "horizontalBar", "data": {"labels": ["Critics", "Users"], "datasets": [{"label": "Positive", "backgroundColor": "#54cc74", "barPercentage": 1, "categoryPercentage": 0.7, "data": [89.47, 64.36]}, {"label": "Mixed", "backgroundColor": "#cde368", "barPercentage": 1, "categoryPercentage": 0.7, "data": [10.53, 18.04]}, {"label": "Negative", "backgroundColor": "#d64545", "barPercentage": 1, "categoryPercentage": 0.7, "data": [0.0, 17.6]}]}, "options": {"title": {"display": true, "position": "top", "text": "Critic and user scores (%)"}, "legend": {"position": "right"}, "maintainAspectRatio": false, "scales": {"xAxes": [{"stacked": true, "ticks": {"max": 100}}], "yAxes": [{"stacked": true}]}}}}')
+
+// Chartjs timeseries charts
+
+
+var steamChart = new Chart(document.getElementById("steamChart").getContext("2d"), chartjs_data["steamChart"]);  
+
+
+
+var twitchChart = new Chart(document.getElementById("twitchChart").getContext("2d"), chartjs_data["twitchChart"]);  
+
+
+
+var redditChart = new Chart(document.getElementById("redditChart").getContext("2d"), chartjs_data["redditChart"]); 
+
+
+// Chartjs review bar charts
+
+
+var chartjs_data_reviews = chartjs_data["reviewsChart"]
+chartjs_data_reviews.options.tooltips = {
+  mode: 'label', 
+  intersect: false,
+  callbacks: {
+    label: function(t, d) {
+      var dstLabel = d.datasets[t.datasetIndex].label;
+      var xLabel = t.xLabel;
+      return dstLabel + ': ' + xLabel + '%';
+    }
+  }
+}
+
+var reviewsChart = new Chart(document.getElementById('reviewChart').getContext('2d'), chartjs_data_reviews)
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genshin Impact</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    .active-link {
+      text-decoration: underline;
+      text-decoration-color: rgb(0, 123, 255);
+    }
+    th { font-size: 14px; }
+    td { font-size: 14px; }
+
+  </style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">GameMetricsWeb</a>
+    </div>
+  </nav>
+
+  <div class="container-md">
+
+    <div class="d-flex justify-content-center my-2">
+      <h3>Genshin Impact</h3>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-2', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)"">Twitch viewers</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-3', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Reddit subscribers</a>
+                </li>
+              
+            </ul>
+          </div>
+
+          <div class="card-body mx-md-5 px-md-5">
+            
+            
+              <div class="chart" id="chart-2">
+                <h5 class="card-text">Twitch viewers</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(twitchChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="twitchChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-3">
+                <h5 class="card-text">Reddit subscribers 
+                  <a href="https://reddit.com/r/genshin_impact" target="_blank">
+                    r/genshin_impact  
+                  </a>
+                </h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(redditChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="redditChart"></canvas>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+
+          <div class="card-header">
+            <h5 class="card-text">Metacritic scores</h5>
+          </div>
+
+          
+            <div class="mx-2 mx-lg-5" style="position: relative; height:20vh;">
+              <canvas id="reviewChart"></canvas>
+            </div>
+          
+
+          
+            <div class="mx-2 mx-lg-5">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Average score</th>
+                    <th scope="col">Number of ratings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Critics</th>
+                    <td>84.0/100</td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <th>Users</th>
+                    <td>55/100</td>
+                    <td>1424</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="https://www.metacritic.com/game/pc/genshin-impact" target="_blank" style="text-decoration: none;">
+                Read critic reviews
+              </a>       
+            </div>
+          
+   
+
+        </div>
+      </div>
+
+    
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+          <div class="card-header">
+            <h5 class="card-text">Info</h5>
+          </div>
+          <div class="card-body">  
+            <p><h6 style="display: inline">Description: </h6> Genshin Impact is a free-to-play RPG set in fantasy open world environment and has an action based battle system using elemental magic and weapons. </p> 
+            <p><h6 style="display: inline">Tags: </h6> RPG, free-to-play, open world </p> 
+            <p><h6 style="display: inline">Release date: </h6> 2020-09-28 </p> 
+            <p><h6 style="display: inline">Developer: </h6> miHoYo </p>      
+            <p>
+              <a href="https://genshin.mihoyo.com/" target="_blank" style="text-decoration: none;">
+                Get Genshin Impact 
+              </a>
+            </p>  
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+
+
+
+</body>
+
+<script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="../js/Chart.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/hammer.min.js" crossorigin="anonymous"></script>
+<script src="../js/chartjs-plugin-zoom.js" crossorigin="anonymous"></script>
+
+<script>
+
+function resetGraph(chartVariable) {
+  chartVariable.options.scales.xAxes[0].ticks.min = null;
+  chartVariable.options.scales.xAxes[0].ticks.max = null;
+  // chartVariable.resetZoom();
+  chartVariable.update();
+}
+
+function openTab(evt, tabcontent_id, tabcontent_classname, tablink_classname) {
+
+  // Get all elements with class "tabcontent_classname" and hide them
+  var tabcontent = document.getElementsByClassName(tabcontent_classname);
+
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class "tablink_classname" and remove the class "active-link"
+  var tablinks = document.getElementsByClassName(tablink_classname);
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active-link");
+  }
+
+  // Show the current tab, and add an "active-link" class to the link that opened the tab
+  document.getElementById(tabcontent_id).style.display = "block";
+  evt.currentTarget.classList.add("active-link");
+}
+
+// Show first chart
+document.getElementsByClassName("chart-link")[0].click();
+
+// Parse chartjs data
+var chartjs_data = JSON.parse('{"twitchChart": {"type": "line", "data": {"datasets": [{"label": "Peak viewers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 144000.0}, {"t": "2020-09-01", "y": 215000.0}, {"t": "2020-08-01", "y": 328.0}, {"t": "2020-07-01", "y": 29300.0}, {"t": "2020-04-01", "y": 2000.0}, {"t": "2020-03-01", "y": 24300.0}]}, {"label": "Average viewers", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 42800.0}, {"t": "2020-09-01", "y": 8400.0}, {"t": "2020-08-01", "y": 9.0}, {"t": "2020-07-01", "y": 1100.0}, {"t": "2020-04-01", "y": 97.0}, {"t": "2020-03-01", "y": 610.0}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2020-03-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "redditChart": {"type": "line", "data": {"datasets": [{"label": "Amount of subscribers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2019-06-01", "y": 163}, {"t": "2019-07-01", "y": 347}, {"t": "2019-08-01", "y": 485}, {"t": "2019-09-01", "y": 614}, {"t": "2019-10-01", "y": 690}, {"t": "2019-11-01", "y": 761}, {"t": "2019-12-01", "y": 814}, {"t": "2020-01-01", "y": 921}, {"t": "2020-02-01", "y": 1139}, {"t": "2020-03-01", "y": 1584}, {"t": "2020-04-01", "y": 2317}, {"t": "2020-05-01", "y": 3106}, {"t": "2020-06-01", "y": 4440}, {"t": "2020-07-01", "y": 6647}, {"t": "2020-08-01", "y": 8669}, {"t": "2020-09-01", "y": 28306}, {"t": "2020-10-01", "y": 322608}, {"t": "2020-11-01", "y": 515561}, {"t": "2020-12-01", "y": 604111}, {"t": "2021-01-01", "y": 668249}, {"t": "2021-02-01", "y": 757689}, {"t": "2021-03-01", "y": 827535}, {"t": "2021-04-01", "y": 877129}, {"t": "2021-05-01", "y": 925893}, {"t": "2021-06-01", "y": 955987}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2019-06-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "reviewsChart": {"type": "horizontalBar", "data": {"labels": ["Critics", "Users"], "datasets": [{"label": "Positive", "backgroundColor": "#54cc74", "barPercentage": 1, "categoryPercentage": 0.7, "data": [89.47, 64.36]}, {"label": "Mixed", "backgroundColor": "#cde368", "barPercentage": 1, "categoryPercentage": 0.7, "data": [10.53, 18.04]}, {"label": "Negative", "backgroundColor": "#d64545", "barPercentage": 1, "categoryPercentage": 0.7, "data": [0.0, 17.6]}]}, "options": {"title": {"display": true, "position": "top", "text": "Critic and user scores (%)"}, "legend": {"position": "right"}, "maintainAspectRatio": false, "scales": {"xAxes": [{"stacked": true, "ticks": {"max": 100}}], "yAxes": [{"stacked": true}]}}}}')
+
+// Chartjs timeseries charts
+
+
+
+
+var twitchChart = new Chart(document.getElementById("twitchChart").getContext("2d"), chartjs_data["twitchChart"]);  
+
+
+
+var redditChart = new Chart(document.getElementById("redditChart").getContext("2d"), chartjs_data["redditChart"]); 
+
+
+// Chartjs review bar charts
+
+
+var chartjs_data_reviews = chartjs_data["reviewsChart"]
+chartjs_data_reviews.options.tooltips = {
+  mode: 'label', 
+  intersect: false,
+  callbacks: {
+    label: function(t, d) {
+      var dstLabel = d.datasets[t.datasetIndex].label;
+      var xLabel = t.xLabel;
+      return dstLabel + ': ' + xLabel + '%';
+    }
+  }
+}
+
+var reviewsChart = new Chart(document.getElementById('reviewChart').getContext('2d'), chartjs_data_reviews)
+
+
+
+</script>
+
+</html>

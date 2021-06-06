@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="G5Oh0-qIh14WV8FXGkRCuuf_KCVODkGe4N-htZs3gJ8" />
+  <title>GameMetricsWeb</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
+
+  <style type="text/css">
+    a.gamelink {
+      text-decoration: none; 
+      color: black;
+    }
+    #games-list {
+      text-align:center;
+    }
+    #games-list li {
+      display:inline-block;
+      margin: 0px 15px 0px 15px;
+    }
+    #games-list li a.page {
+      text-decoration: none;
+    } 
+    #games-list li.active a.page {
+      text-decoration: underline;
+    } 
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand text-center" href="index.html">GameMetricsWeb</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="row" id="games-list"> 
+
+      <div class="d-flex justify-content-center my-3">
+        <span class="d-flex">
+          <input class="form-control mr-2" type="search" placeholder="Search games"  id="input-search-games">
+          <button class="btn btn-success" id="button-search-games">Search</button>
+        </span>
+      </div>
+
+      <ul class="list">
+      </ul>
+      <ul class="paginationBottom"></ul>
+    </div> 
+  </div>
+
+</body>
+
+<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="js/list.min.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+// Initialise list.js
+var options = {
+    valueNames: ['gamename',
+    {name: 'gameimage', attr: 'src' },
+    {name: 'gamelink', attr: 'href' }],
+    item: `<li><a class="gamelink">
+             <div class="card mb-5" style="width: 170px;">
+               <img loading="lazy" class="card-img-top gameimage">
+                 <div class="container d-flex h-100" style="min-height: 64px;">
+                   <div class="row justify-content-center align-self-center text-center">
+                     <p class="gamename"></p>
+                   </div>
+                 </div>
+             </div>
+          </a></li>`,
+    page: 5,
+    pagination: [{
+      paginationClass: "paginationBottom",
+      innerWindow: 1,
+      left: 1,
+      right: 1
+    }]
+};
+
+var values = JSON.parse('[{"gamename": "Counter-Strike: Global Offensive", "gameimage": "images/counter-strike-global-offensive.jpg", "gamelink": "games/counter-strike-global-offensive.html"}, {"gamename": "Dota 2", "gameimage": "images/dota-2.jpg", "gamelink": "games/dota-2.html"}, {"gamename": "PlayerUnknown\'s Battlegrounds", "gameimage": "images/playerunknowns-battlegrounds.jpg", "gamelink": "games/playerunknowns-battlegrounds.html"}, {"gamename": "Fall Guys: Ultimate Knockout", "gameimage": "images/fall-guys-ultimate-knockout.jpg", "gamelink": "games/fall-guys-ultimate-knockout.html"}, {"gamename": "Grand Theft Auto V", "gameimage": "images/grand-theft-auto-v.jpg", "gamelink": "games/grand-theft-auto-v.html"}, {"gamename": "Team Fortress 2", "gameimage": "images/team-fortress-2.jpg", "gamelink": "games/team-fortress-2.html"}, {"gamename": "Tom Clancy\'s Rainbow Six Siege", "gameimage": "images/tom-clancys-rainbow-six-siege.jpg", "gamelink": "games/tom-clancys-rainbow-six-siege.html"}, {"gamename": "Destiny 2", "gameimage": "images/destiny-2.jpg", "gamelink": "games/destiny-2.html"}, {"gamename": "Warframe", "gameimage": "images/warframe.jpg", "gamelink": "games/warframe.html"}, {"gamename": "Rust", "gameimage": "images/rust.jpg", "gamelink": "games/rust.html"}, {"gamename": "ARK: Survival Evolved", "gameimage": "images/ark-survival-evolved.jpg", "gamelink": "games/ark-survival-evolved.html"}, {"gamename": "PAYDAY 2", "gameimage": "images/payday-2.jpg", "gamelink": "games/payday-2.html"}, {"gamename": "Football Manager 2020", "gameimage": "images/football-manager-2020.jpg", "gamelink": "games/football-manager-2020.html"}, {"gamename": "League of Legends", "gameimage": "images/league-of-legends.jpg", "gamelink": "games/league-of-legends.html"}, {"gamename": "Apex Legends", "gameimage": "images/apex-legends.jpg", "gamelink": "games/apex-legends.html"}, {"gamename": "Fortnite", "gameimage": "images/fortnite.jpg", "gamelink": "games/fortnite.html"}, {"gamename": "Valorant", "gameimage": "images/valorant.jpg", "gamelink": "games/valorant.html"}, {"gamename": "Minecraft", "gameimage": "images/minecraft.jpg", "gamelink": "games/minecraft.html"}, {"gamename": "Among Us", "gameimage": "images/among-us.jpg", "gamelink": "games/among-us.html"}, {"gamename": "Call of Duty: Modern Warfare", "gameimage": "images/call-of-duty-modern-warfare.jpg", "gamelink": "games/call-of-duty-modern-warfare.html"}, {"gamename": "FIFA 21", "gameimage": "images/fifa-21.jpg", "gamelink": "games/fifa-21.html"}, {"gamename": "Genshin Impact", "gameimage": "images/genshin-impact.jpg", "gamelink": "games/genshin-impact.html"}]');
+
+var gamesList = new List('games-list', options, values);
+
+// Search
+var inputSearchGames = document.getElementById("input-search-games");
+var buttonSearchGames = document.getElementById("button-search-games");
+var input;
+
+// Search when press on Enter key
+inputSearchGames.addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {
+    input = inputSearchGames.value.toLowerCase().trim();
+    gamesList.search(input);
+  }
+});
+
+// Search when click on Search button
+buttonSearchGames.onclick = function() {
+  input = inputSearchGames.value.toLowerCase().trim();
+  gamesList.search(input);
+}
+
+// Show all items in list when search input is empty
+inputSearchGames.addEventListener("input", function(event) {
+  input = inputSearchGames.value.toLowerCase().trim();
+  if(!input || input.length === 0) {
+    gamesList.search();
+  }
+});
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fortnite</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    .active-link {
+      text-decoration: underline;
+      text-decoration-color: rgb(0, 123, 255);
+    }
+    th { font-size: 14px; }
+    td { font-size: 14px; }
+
+  </style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">GameMetricsWeb</a>
+    </div>
+  </nav>
+
+  <div class="container-md">
+
+    <div class="d-flex justify-content-center my-2">
+      <h3>Fortnite</h3>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-2', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)"">Twitch viewers</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-3', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Reddit subscribers</a>
+                </li>
+              
+            </ul>
+          </div>
+
+          <div class="card-body mx-md-5 px-md-5">
+            
+            
+              <div class="chart" id="chart-2">
+                <h5 class="card-text">Twitch viewers</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(twitchChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="twitchChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-3">
+                <h5 class="card-text">Reddit subscribers 
+                  <a href="https://reddit.com/r/fortniteBR" target="_blank">
+                    r/fortniteBR  
+                  </a>
+                </h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(redditChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="redditChart"></canvas>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+
+          <div class="card-header">
+            <h5 class="card-text">Metacritic scores</h5>
+          </div>
+
+          
+            <div class="mx-2 mx-lg-5" style="position: relative; height:20vh;">
+              <canvas id="reviewChart"></canvas>
+            </div>
+          
+
+          
+            <div class="mx-2 mx-lg-5">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Average score</th>
+                    <th scope="col">Number of ratings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Critics</th>
+                    <td>81.0/100</td>
+                    <td>11</td>
+                  </tr>
+                  <tr>
+                    <th>Users</th>
+                    <td>30/100</td>
+                    <td>1273</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="https://www.metacritic.com/game/pc/fortnite" target="_blank" style="text-decoration: none;">
+                Read critic reviews
+              </a>       
+            </div>
+          
+   
+
+        </div>
+      </div>
+
+    
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+          <div class="card-header">
+            <h5 class="card-text">Info</h5>
+          </div>
+          <div class="card-body">  
+            <p><h6 style="display: inline">Description: </h6> Fortnite is a free-to-play Battle Royale where 100 players airdrop onto an island and scavenge for weapons and equipment while avoiding getting killed. </p> 
+            <p><h6 style="display: inline">Tags: </h6> survival, shooter, multiplayer, battle royale, free-to-play </p> 
+            <p><h6 style="display: inline">Release date: </h6> 2017-07-25 </p> 
+            <p><h6 style="display: inline">Developer: </h6> Epic Games </p>      
+            <p>
+              <a href="https://www.epicgames.com/fortnite" target="_blank" style="text-decoration: none;">
+                Get Fortnite 
+              </a>
+            </p>  
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+
+
+
+</body>
+
+<script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="../js/Chart.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/hammer.min.js" crossorigin="anonymous"></script>
+<script src="../js/chartjs-plugin-zoom.js" crossorigin="anonymous"></script>
+
+<script>
+
+function resetGraph(chartVariable) {
+  chartVariable.options.scales.xAxes[0].ticks.min = null;
+  chartVariable.options.scales.xAxes[0].ticks.max = null;
+  // chartVariable.resetZoom();
+  chartVariable.update();
+}
+
+function openTab(evt, tabcontent_id, tabcontent_classname, tablink_classname) {
+
+  // Get all elements with class "tabcontent_classname" and hide them
+  var tabcontent = document.getElementsByClassName(tabcontent_classname);
+
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class "tablink_classname" and remove the class "active-link"
+  var tablinks = document.getElementsByClassName(tablink_classname);
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active-link");
+  }
+
+  // Show the current tab, and add an "active-link" class to the link that opened the tab
+  document.getElementById(tabcontent_id).style.display = "block";
+  evt.currentTarget.classList.add("active-link");
+}
+
+// Show first chart
+document.getElementsByClassName("chart-link")[0].click();
+
+// Parse chartjs data
+var chartjs_data = JSON.parse('{"twitchChart": {"type": "line", "data": {"datasets": [{"label": "Peak viewers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 388000.0}, {"t": "2020-09-01", "y": 271000.0}, {"t": "2020-08-01", "y": 499000.0}, {"t": "2020-07-01", "y": 327000.0}, {"t": "2020-06-01", "y": 2280000.0}, {"t": "2020-05-01", "y": 625000.0}, {"t": "2020-04-01", "y": 1270000.0}, {"t": "2020-03-01", "y": 289000.0}, {"t": "2020-02-01", "y": 276000.0}, {"t": "2020-01-01", "y": 619000.0}, {"t": "2019-12-01", "y": 943000.0}, {"t": "2019-11-01", "y": 414000.0}, {"t": "2019-10-01", "y": 1690000.0}, {"t": "2019-09-01", "y": 335000.0}, {"t": "2019-08-01", "y": 335000.0}, {"t": "2019-07-01", "y": 1290000.0}, {"t": "2019-06-01", "y": 494000.0}, {"t": "2019-05-01", "y": 642000.0}, {"t": "2019-04-01", "y": 474000.0}, {"t": "2019-03-01", "y": 429000.0}, {"t": "2019-02-01", "y": 682000.0}, {"t": "2019-01-01", "y": 762000.0}, {"t": "2018-12-01", "y": 419000.0}, {"t": "2018-11-01", "y": 1060000.0}, {"t": "2018-10-01", "y": 582000.0}, {"t": "2018-09-01", "y": 729000.0}, {"t": "2018-08-01", "y": 698000.0}, {"t": "2018-07-01", "y": 835000.0}, {"t": "2018-06-01", "y": 1500000.0}, {"t": "2018-05-01", "y": 581000.0}, {"t": "2018-04-01", "y": 687000.0}, {"t": "2018-03-01", "y": 840000.0}, {"t": "2018-02-01", "y": 264000.0}, {"t": "2018-01-01", "y": 194000.0}, {"t": "2017-12-01", "y": 127000.0}, {"t": "2017-11-01", "y": 154000.0}, {"t": "2017-10-01", "y": 79200.0}, {"t": "2017-09-01", "y": 78400.0}, {"t": "2017-08-01", "y": 14600.0}, {"t": "2017-07-01", "y": 76100.0}]}, {"label": "Average viewers", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 115000.0}, {"t": "2020-09-01", "y": 108000.0}, {"t": "2020-08-01", "y": 133000.0}, {"t": "2020-07-01", "y": 142000.0}, {"t": "2020-06-01", "y": 155000.0}, {"t": "2020-05-01", "y": 165000.0}, {"t": "2020-04-01", "y": 136000.0}, {"t": "2020-03-01", "y": 89100.0}, {"t": "2020-02-01", "y": 79700.0}, {"t": "2020-01-01", "y": 72300.0}, {"t": "2019-12-01", "y": 86400.0}, {"t": "2019-11-01", "y": 81500.0}, {"t": "2019-10-01", "y": 106000.0}, {"t": "2019-09-01", "y": 83900.0}, {"t": "2019-08-01", "y": 120000.0}, {"t": "2019-07-01", "y": 122000.0}, {"t": "2019-06-01", "y": 129000.0}, {"t": "2019-05-01", "y": 144000.0}, {"t": "2019-04-01", "y": 139000.0}, {"t": "2019-03-01", "y": 136000.0}, {"t": "2019-02-01", "y": 125000.0}, {"t": "2019-01-01", "y": 170000.0}, {"t": "2018-12-01", "y": 158000.0}, {"t": "2018-11-01", "y": 153000.0}, {"t": "2018-10-01", "y": 151000.0}, {"t": "2018-09-01", "y": 147000.0}, {"t": "2018-08-01", "y": 177000.0}, {"t": "2018-07-01", "y": 205000.0}, {"t": "2018-06-01", "y": 176000.0}, {"t": "2018-05-01", "y": 194000.0}, {"t": "2018-04-01", "y": 179000.0}, {"t": "2018-03-01", "y": 159000.0}, {"t": "2018-02-01", "y": 97600.0}, {"t": "2018-01-01", "y": 61600.0}, {"t": "2017-12-01", "y": 43800.0}, {"t": "2017-11-01", "y": 32500.0}, {"t": "2017-10-01", "y": 21700.0}, {"t": "2017-09-01", "y": 6500.0}, {"t": "2017-08-01", "y": 1900.0}, {"t": "2017-07-01", "y": 12100.0}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2018-01-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "redditChart": {"type": "line", "data": {"datasets": [{"label": "Amount of subscribers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2017-09-01", "y": 2855}, {"t": "2017-10-01", "y": 27256}, {"t": "2017-11-01", "y": 49345}, {"t": "2017-12-01", "y": 77265}, {"t": "2018-01-01", "y": 130391}, {"t": "2018-02-01", "y": 214994}, {"t": "2018-03-01", "y": 375884}, {"t": "2018-04-01", "y": 495989}, {"t": "2018-05-01", "y": 615824}, {"t": "2018-06-01", "y": 685585}, {"t": "2018-07-01", "y": 776882}, {"t": "2018-08-01", "y": 842003}, {"t": "2018-09-01", "y": 882290}, {"t": "2018-10-01", "y": 913184}, {"t": "2018-11-01", "y": 935074}, {"t": "2018-12-01", "y": 963780}, {"t": "2019-01-01", "y": 995353}, {"t": "2019-02-01", "y": 1019893}, {"t": "2019-03-01", "y": 1037899}, {"t": "2019-04-01", "y": 1051105}, {"t": "2019-05-01", "y": 1069117}, {"t": "2019-06-01", "y": 1085892}, {"t": "2019-07-01", "y": 1099359}, {"t": "2019-08-01", "y": 1128214}, {"t": "2019-09-01", "y": 1138802}, {"t": "2019-10-01", "y": 1156538}, {"t": "2019-11-01", "y": 1180847}, {"t": "2019-12-01", "y": 1188124}, {"t": "2020-01-01", "y": 1197158}, {"t": "2020-02-01", "y": 1205511}, {"t": "2020-03-01", "y": 1220553}, {"t": "2020-04-01", "y": 1238257}, {"t": "2020-05-01", "y": 1262185}, {"t": "2020-06-01", "y": 1288385}, {"t": "2020-07-01", "y": 1311801}, {"t": "2020-08-01", "y": 1336271}, {"t": "2020-09-01", "y": 1367972}, {"t": "2020-10-01", "y": 1388612}, {"t": "2020-11-01", "y": 1406707}, {"t": "2020-12-01", "y": 1425747}, {"t": "2021-01-01", "y": 1443518}, {"t": "2021-02-01", "y": 1466545}, {"t": "2021-03-01", "y": 1482103}, {"t": "2021-04-01", "y": 1499358}, {"t": "2021-05-01", "y": 1513483}, {"t": "2021-06-01", "y": 1521791}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2018-01-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "reviewsChart": {"type": "horizontalBar", "data": {"labels": ["Critics", "Users"], "datasets": [{"label": "Positive", "backgroundColor": "#54cc74", "barPercentage": 1, "categoryPercentage": 0.7, "data": [89.47, 64.36]}, {"label": "Mixed", "backgroundColor": "#cde368", "barPercentage": 1, "categoryPercentage": 0.7, "data": [10.53, 18.04]}, {"label": "Negative", "backgroundColor": "#d64545", "barPercentage": 1, "categoryPercentage": 0.7, "data": [0.0, 17.6]}]}, "options": {"title": {"display": true, "position": "top", "text": "Critic and user scores (%)"}, "legend": {"position": "right"}, "maintainAspectRatio": false, "scales": {"xAxes": [{"stacked": true, "ticks": {"max": 100}}], "yAxes": [{"stacked": true}]}}}}')
+
+// Chartjs timeseries charts
+
+
+
+
+var twitchChart = new Chart(document.getElementById("twitchChart").getContext("2d"), chartjs_data["twitchChart"]);  
+
+
+
+var redditChart = new Chart(document.getElementById("redditChart").getContext("2d"), chartjs_data["redditChart"]); 
+
+
+// Chartjs review bar charts
+
+
+var chartjs_data_reviews = chartjs_data["reviewsChart"]
+chartjs_data_reviews.options.tooltips = {
+  mode: 'label', 
+  intersect: false,
+  callbacks: {
+    label: function(t, d) {
+      var dstLabel = d.datasets[t.datasetIndex].label;
+      var xLabel = t.xLabel;
+      return dstLabel + ': ' + xLabel + '%';
+    }
+  }
+}
+
+var reviewsChart = new Chart(document.getElementById('reviewChart').getContext('2d'), chartjs_data_reviews)
+
+
+
+</script>
+
+</html>

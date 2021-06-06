@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grand Theft Auto V</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    .active-link {
+      text-decoration: underline;
+      text-decoration-color: rgb(0, 123, 255);
+    }
+    th { font-size: 14px; }
+    td { font-size: 14px; }
+
+  </style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">GameMetricsWeb</a>
+    </div>
+  </nav>
+
+  <div class="container-md">
+
+    <div class="d-flex justify-content-center my-2">
+      <h3>Grand Theft Auto V</h3>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-1', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Steam players</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-2', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)"">Twitch viewers</a>
+                </li>
+              
+              
+                <li class="nav-item chart-link" onclick="openTab(event, 'chart-3', 'chart', 'chart-link')">
+                  <a class="nav-link" href="javascript:void(0)">Reddit subscribers</a>
+                </li>
+              
+            </ul>
+          </div>
+
+          <div class="card-body mx-md-5 px-md-5">
+            
+              <div class="chart" id="chart-1">
+                <h5 class="card-text">Steam players</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(steamChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="steamChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-2">
+                <h5 class="card-text">Twitch viewers</h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(twitchChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="twitchChart"></canvas>
+                </div>
+              </div>
+            
+            
+              <div class="chart" id="chart-3">
+                <h5 class="card-text">Reddit subscribers 
+                  <a href="https://reddit.com/r/GrandTheftAutoV" target="_blank">
+                    r/GrandTheftAutoV  
+                  </a>
+                </h5>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetGraph(redditChart)">Show all data</button>
+                <div style="position: relative; height:40vh;">
+                  <canvas id="redditChart"></canvas>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+
+          <div class="card-header">
+            <h5 class="card-text">Metacritic scores</h5>
+          </div>
+
+          
+            <div class="mx-2 mx-lg-5" style="position: relative; height:20vh;">
+              <canvas id="reviewChart"></canvas>
+            </div>
+          
+
+          
+            <div class="mx-2 mx-lg-5">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Average score</th>
+                    <th scope="col">Number of ratings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Critics</th>
+                    <td>96.0/100</td>
+                    <td>57</td>
+                  </tr>
+                  <tr>
+                    <th>Users</th>
+                    <td>78/100</td>
+                    <td>7369</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="https://www.metacritic.com/game/pc/grand-theft-auto-v" target="_blank" style="text-decoration: none;">
+                Read critic reviews
+              </a>       
+            </div>
+          
+   
+
+        </div>
+      </div>
+
+    
+      <div class="col-md-6 mb-2">
+        <div class="card" style="min-height: 360px;">
+          <div class="card-header">
+            <h5 class="card-text">Info</h5>
+          </div>
+          <div class="card-body">  
+            <p><h6 style="display: inline">Description: </h6> Grand Theft Auto V is an action-adventure game set within the fictional state of San Andreas and follows the story of three protagonist: a bank robber, a street gangster and a drug dealer. </p> 
+            <p><h6 style="display: inline">Tags: </h6> open world, action, multiplayer, automobile simulator, shooter </p> 
+            <p><h6 style="display: inline">Release date: </h6> 2015-04-14 </p> 
+            <p><h6 style="display: inline">Developer: </h6> Rockstar North </p>      
+            <p>
+              <a href="https://store.steampowered.com/app/271590/Grand_Theft_Auto_V/" target="_blank" style="text-decoration: none;">
+                Get Grand Theft Auto V 
+              </a>
+            </p>  
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+
+
+
+</body>
+
+<script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="../js/Chart.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/hammer.min.js" crossorigin="anonymous"></script>
+<script src="../js/chartjs-plugin-zoom.js" crossorigin="anonymous"></script>
+
+<script>
+
+function resetGraph(chartVariable) {
+  chartVariable.options.scales.xAxes[0].ticks.min = null;
+  chartVariable.options.scales.xAxes[0].ticks.max = null;
+  // chartVariable.resetZoom();
+  chartVariable.update();
+}
+
+function openTab(evt, tabcontent_id, tabcontent_classname, tablink_classname) {
+
+  // Get all elements with class "tabcontent_classname" and hide them
+  var tabcontent = document.getElementsByClassName(tabcontent_classname);
+
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class "tablink_classname" and remove the class "active-link"
+  var tablinks = document.getElementsByClassName(tablink_classname);
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active-link");
+  }
+
+  // Show the current tab, and add an "active-link" class to the link that opened the tab
+  document.getElementById(tabcontent_id).style.display = "block";
+  evt.currentTarget.classList.add("active-link");
+}
+
+// Show first chart
+document.getElementsByClassName("chart-link")[0].click();
+
+// Parse chartjs data
+var chartjs_data = JSON.parse('{"twitchChart": {"type": "line", "data": {"datasets": [{"label": "Peak viewers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 203000.0}, {"t": "2020-09-01", "y": 324000.0}, {"t": "2020-08-01", "y": 375000.0}, {"t": "2020-07-01", "y": 381000.0}, {"t": "2020-06-01", "y": 389000.0}, {"t": "2020-05-01", "y": 373000.0}, {"t": "2020-04-01", "y": 247000.0}, {"t": "2020-03-01", "y": 185000.0}, {"t": "2020-02-01", "y": 135000.0}, {"t": "2020-01-01", "y": 158000.0}, {"t": "2019-12-01", "y": 146000.0}, {"t": "2019-11-01", "y": 216000.0}, {"t": "2019-10-01", "y": 136000.0}, {"t": "2019-09-01", "y": 163000.0}, {"t": "2019-08-01", "y": 206000.0}, {"t": "2019-07-01", "y": 222000.0}, {"t": "2019-06-01", "y": 176000.0}, {"t": "2019-05-01", "y": 183000.0}, {"t": "2019-04-01", "y": 259000.0}, {"t": "2019-03-01", "y": 305000.0}, {"t": "2019-02-01", "y": 77600.0}, {"t": "2019-01-01", "y": 71000.0}, {"t": "2018-12-01", "y": 65800.0}, {"t": "2018-11-01", "y": 64099.99999999999}, {"t": "2018-10-01", "y": 55700.0}, {"t": "2018-09-01", "y": 57300.0}, {"t": "2018-08-01", "y": 60600.0}, {"t": "2018-07-01", "y": 68600.0}, {"t": "2018-06-01", "y": 67300.0}, {"t": "2018-05-01", "y": 77600.0}, {"t": "2018-04-01", "y": 47700.0}, {"t": "2018-03-01", "y": 50900.0}, {"t": "2018-02-01", "y": 82900.0}, {"t": "2018-01-01", "y": 58500.0}, {"t": "2017-12-01", "y": 97800.0}, {"t": "2017-11-01", "y": 47100.0}, {"t": "2017-10-01", "y": 36400.0}, {"t": "2017-09-01", "y": 48600.0}, {"t": "2017-08-01", "y": 64500.0}, {"t": "2017-07-01", "y": 71500.0}, {"t": "2017-06-01", "y": 76100.0}, {"t": "2017-05-01", "y": 124000.0}, {"t": "2017-04-01", "y": 152000.0}, {"t": "2017-03-01", "y": 21600.0}, {"t": "2017-02-01", "y": 40300.0}, {"t": "2017-01-01", "y": 45600.0}, {"t": "2016-12-01", "y": 31600.0}]}, {"label": "Average viewers", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2020-10-01", "y": 74900.0}, {"t": "2020-09-01", "y": 81800.0}, {"t": "2020-08-01", "y": 112000.0}, {"t": "2020-07-01", "y": 127000.0}, {"t": "2020-06-01", "y": 139000.0}, {"t": "2020-05-01", "y": 134000.0}, {"t": "2020-04-01", "y": 105000.0}, {"t": "2020-03-01", "y": 75500.0}, {"t": "2020-02-01", "y": 62400.0}, {"t": "2020-01-01", "y": 57300.0}, {"t": "2019-12-01", "y": 50900.0}, {"t": "2019-11-01", "y": 46100.0}, {"t": "2019-10-01", "y": 49600.0}, {"t": "2019-09-01", "y": 54800.0}, {"t": "2019-08-01", "y": 86900.0}, {"t": "2019-07-01", "y": 84300.0}, {"t": "2019-06-01", "y": 83100.0}, {"t": "2019-05-01", "y": 100000.0}, {"t": "2019-04-01", "y": 115000.0}, {"t": "2019-03-01", "y": 82900.0}, {"t": "2019-02-01", "y": 19100.0}, {"t": "2019-01-01", "y": 16300.0}, {"t": "2018-12-01", "y": 12600.0}, {"t": "2018-11-01", "y": 13700.0}, {"t": "2018-10-01", "y": 16000.0}, {"t": "2018-09-01", "y": 18300.0}, {"t": "2018-08-01", "y": 20500.0}, {"t": "2018-07-01", "y": 21900.0}, {"t": "2018-06-01", "y": 16900.0}, {"t": "2018-05-01", "y": 15700.0}, {"t": "2018-04-01", "y": 13700.0}, {"t": "2018-03-01", "y": 14000.0}, {"t": "2018-02-01", "y": 21700.0}, {"t": "2018-01-01", "y": 17400.0}, {"t": "2017-12-01", "y": 14700.0}, {"t": "2017-11-01", "y": 13700.0}, {"t": "2017-10-01", "y": 10100.0}, {"t": "2017-09-01", "y": 12400.0}, {"t": "2017-08-01", "y": 14400.0}, {"t": "2017-07-01", "y": 20800.0}, {"t": "2017-06-01", "y": 19400.0}, {"t": "2017-05-01", "y": 27000.0}, {"t": "2017-04-01", "y": 21500.0}, {"t": "2017-03-01", "y": 4100.0}, {"t": "2017-02-01", "y": 3400.0}, {"t": "2017-01-01", "y": 5800.0}, {"t": "2016-12-01", "y": 4000.0}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2018-01-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "redditChart": {"type": "line", "data": {"datasets": [{"label": "Amount of subscribers", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2012-10-01", "y": 7709}, {"t": "2012-11-01", "y": 10960}, {"t": "2012-12-01", "y": 12958}, {"t": "2013-01-01", "y": 13588}, {"t": "2013-02-01", "y": 14299}, {"t": "2013-03-01", "y": 14676}, {"t": "2013-04-01", "y": 15729}, {"t": "2013-05-01", "y": 17556}, {"t": "2013-06-01", "y": 18893}, {"t": "2013-07-01", "y": 21809}, {"t": "2013-08-01", "y": 26185}, {"t": "2013-09-01", "y": 49042}, {"t": "2013-10-01", "y": 89164}, {"t": "2013-11-01", "y": 99154}, {"t": "2013-12-01", "y": 101676}, {"t": "2014-01-01", "y": 103509}, {"t": "2014-02-01", "y": 104494}, {"t": "2014-03-01", "y": 104784}, {"t": "2014-04-01", "y": 104997}, {"t": "2014-05-01", "y": 105121}, {"t": "2014-06-01", "y": 105615}, {"t": "2014-07-01", "y": 107559}, {"t": "2014-08-01", "y": 109271}, {"t": "2014-09-01", "y": 110821}, {"t": "2014-10-01", "y": 111882}, {"t": "2014-11-01", "y": 115133}, {"t": "2014-12-01", "y": 122823}, {"t": "2015-01-01", "y": 127970}, {"t": "2015-02-01", "y": 131247}, {"t": "2015-03-01", "y": 135472}, {"t": "2015-04-01", "y": 146144}, {"t": "2015-05-01", "y": 158543}, {"t": "2015-06-01", "y": 162709}, {"t": "2015-07-01", "y": 164859}, {"t": "2015-08-01", "y": 166627}, {"t": "2015-09-01", "y": 167911}, {"t": "2015-10-01", "y": 168994}, {"t": "2015-11-01", "y": 169923}, {"t": "2015-12-01", "y": 168762}, {"t": "2016-01-01", "y": 164846}, {"t": "2016-02-01", "y": 165246}, {"t": "2016-03-01", "y": 165525}, {"t": "2016-04-01", "y": 165835}, {"t": "2016-05-01", "y": 165970}, {"t": "2016-06-01", "y": 166729}, {"t": "2016-07-01", "y": 167718}, {"t": "2016-08-01", "y": 168674}, {"t": "2016-09-01", "y": 169257}, {"t": "2016-10-01", "y": 170003}, {"t": "2016-11-01", "y": 170961}, {"t": "2016-12-01", "y": 172493}, {"t": "2017-01-01", "y": 174818}, {"t": "2017-02-01", "y": 175652}, {"t": "2017-03-01", "y": 176042}, {"t": "2017-04-01", "y": 176498}, {"t": "2017-05-01", "y": 177233}, {"t": "2017-06-01", "y": 178370}, {"t": "2017-07-01", "y": 179695}, {"t": "2017-08-01", "y": 180646}, {"t": "2017-09-01", "y": 181775}, {"t": "2017-10-01", "y": 182229}, {"t": "2017-11-01", "y": 182507}, {"t": "2017-12-01", "y": 183937}, {"t": "2018-01-01", "y": 187013}, {"t": "2018-02-01", "y": 188470}, {"t": "2018-03-01", "y": 189963}, {"t": "2018-04-01", "y": 190942}, {"t": "2018-05-01", "y": 191872}, {"t": "2018-06-01", "y": 192670}, {"t": "2018-07-01", "y": 194474}, {"t": "2018-08-01", "y": 197062}, {"t": "2018-09-01", "y": 198494}, {"t": "2018-10-01", "y": 199536}, {"t": "2018-11-01", "y": 200072}, {"t": "2018-12-01", "y": 200789}, {"t": "2019-01-01", "y": 201958}, {"t": "2019-02-01", "y": 203279}, {"t": "2019-03-01", "y": 206104}, {"t": "2019-04-01", "y": 207559}, {"t": "2019-05-01", "y": 209397}, {"t": "2019-06-01", "y": 211328}, {"t": "2019-07-01", "y": 214089}, {"t": "2019-08-01", "y": 218912}, {"t": "2019-09-01", "y": 221857}, {"t": "2019-10-01", "y": 224011}, {"t": "2019-11-01", "y": 225938}, {"t": "2019-12-01", "y": 228394}, {"t": "2020-01-01", "y": 232392}, {"t": "2020-02-01", "y": 236347}, {"t": "2020-03-01", "y": 239817}, {"t": "2020-04-01", "y": 244588}, {"t": "2020-05-01", "y": 250863}, {"t": "2020-06-01", "y": 256001}, {"t": "2020-07-01", "y": 259473}, {"t": "2020-08-01", "y": 262591}, {"t": "2020-09-01", "y": 264638}, {"t": "2020-10-01", "y": 266145}, {"t": "2020-11-01", "y": 267750}, {"t": "2020-12-01", "y": 270352}, {"t": "2021-01-01", "y": 271959}, {"t": "2021-02-01", "y": 275665}, {"t": "2021-03-01", "y": 278056}, {"t": "2021-04-01", "y": 280205}, {"t": "2021-05-01", "y": 282211}, {"t": "2021-06-01", "y": 283434}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2018-01-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "steamChart": {"type": "line", "data": {"datasets": [{"label": "Peak players", "backgroundColor": "rgba(255, 99, 132, 1)", "borderColor": "rgba(255, 99, 132, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2021-05-01", "y": 146011}, {"t": "2021-04-01", "y": 178142}, {"t": "2021-03-01", "y": 183227}, {"t": "2021-02-01", "y": 146438}, {"t": "2021-01-01", "y": 184941}, {"t": "2020-12-01", "y": 258539}, {"t": "2020-11-01", "y": 157355}, {"t": "2020-10-01", "y": 128578}, {"t": "2020-09-01", "y": 126174}, {"t": "2020-08-01", "y": 154677}, {"t": "2020-07-01", "y": 134093}, {"t": "2020-06-01", "y": 180302}, {"t": "2020-05-01", "y": 260562}, {"t": "2020-04-01", "y": 243284}, {"t": "2020-03-01", "y": 209493}, {"t": "2020-02-01", "y": 267360}, {"t": "2020-01-01", "y": 214796}, {"t": "2019-12-01", "y": 204137}, {"t": "2019-11-01", "y": 138540}, {"t": "2019-10-01", "y": 117002}, {"t": "2019-09-01", "y": 135072}, {"t": "2019-08-01", "y": 176207}, {"t": "2019-07-01", "y": 197555}, {"t": "2019-06-01", "y": 109164}, {"t": "2019-05-01", "y": 108557}, {"t": "2019-04-01", "y": 91586}, {"t": "2019-03-01", "y": 126518}, {"t": "2019-02-01", "y": 119439}, {"t": "2019-01-01", "y": 118210}, {"t": "2018-12-01", "y": 120693}, {"t": "2018-11-01", "y": 81360}, {"t": "2018-10-01", "y": 81337}, {"t": "2018-09-01", "y": 97920}, {"t": "2018-08-01", "y": 123556}, {"t": "2018-07-01", "y": 162021}, {"t": "2018-06-01", "y": 118332}, {"t": "2018-05-01", "y": 82956}, {"t": "2018-04-01", "y": 89792}, {"t": "2018-03-01", "y": 94489}, {"t": "2018-02-01", "y": 94308}, {"t": "2018-01-01", "y": 167754}, {"t": "2017-12-01", "y": 170316}, {"t": "2017-11-01", "y": 85105}, {"t": "2017-10-01", "y": 84553}, {"t": "2017-09-01", "y": 101433}, {"t": "2017-08-01", "y": 121830}, {"t": "2017-07-01", "y": 112074}, {"t": "2017-06-01", "y": 131936}, {"t": "2017-05-01", "y": 83483}, {"t": "2017-04-01", "y": 96503}, {"t": "2017-03-01", "y": 98798}, {"t": "2017-02-01", "y": 104902}, {"t": "2017-01-01", "y": 116125}, {"t": "2016-12-01", "y": 126681}, {"t": "2016-11-01", "y": 86759}, {"t": "2016-10-01", "y": 86192}, {"t": "2016-09-01", "y": 61921}, {"t": "2016-08-01", "y": 63873}, {"t": "2016-07-01", "y": 71778}, {"t": "2016-06-01", "y": 78330}, {"t": "2016-05-01", "y": 48053}, {"t": "2016-04-01", "y": 65878}, {"t": "2016-03-01", "y": 64633}, {"t": "2016-02-01", "y": 72735}, {"t": "2016-01-01", "y": 93726}, {"t": "2015-12-01", "y": 84558}, {"t": "2015-11-01", "y": 77141}, {"t": "2015-10-01", "y": 73902}, {"t": "2015-09-01", "y": 46917}, {"t": "2015-08-01", "y": 50693}, {"t": "2015-07-01", "y": 60908}, {"t": "2015-06-01", "y": 85195}, {"t": "2015-05-01", "y": 215966}, {"t": "2015-04-01", "y": 360761}]}, {"label": "Average players", "backgroundColor": "rgba(54, 162, 235, 1)", "borderColor": "rgba(54, 162, 235, 1)", "borderWith": 1.5, "fill": false, "data": [{"t": "2021-05-01", "y": 84756.8}, {"t": "2021-04-01", "y": 92647.8}, {"t": "2021-03-01", "y": 89792.8}, {"t": "2021-02-01", "y": 90647.6}, {"t": "2021-01-01", "y": 101250.6}, {"t": "2020-12-01", "y": 106914.3}, {"t": "2020-11-01", "y": 76718.3}, {"t": "2020-10-01", "y": 67193.0}, {"t": "2020-09-01", "y": 68047.0}, {"t": "2020-08-01", "y": 88398.4}, {"t": "2020-07-01", "y": 83654.7}, {"t": "2020-06-01", "y": 99752.9}, {"t": "2020-05-01", "y": 141369.9}, {"t": "2020-04-01", "y": 126086.7}, {"t": "2020-03-01", "y": 116386.4}, {"t": "2020-02-01", "y": 142724.5}, {"t": "2020-01-01", "y": 111300.2}, {"t": "2019-12-01", "y": 97777.7}, {"t": "2019-11-01", "y": 68842.9}, {"t": "2019-10-01", "y": 58656.1}, {"t": "2019-09-01", "y": 66131.6}, {"t": "2019-08-01", "y": 97648.0}, {"t": "2019-07-01", "y": 92617.6}, {"t": "2019-06-01", "y": 56717.7}, {"t": "2019-05-01", "y": 55410.5}, {"t": "2019-04-01", "y": 48502.3}, {"t": "2019-03-01", "y": 60229.7}, {"t": "2019-02-01", "y": 58124.2}, {"t": "2019-01-01", "y": 59851.2}, {"t": "2018-12-01", "y": 55641.3}, {"t": "2018-11-01", "y": 43009.4}, {"t": "2018-10-01", "y": 43266.0}, {"t": "2018-09-01", "y": 49147.7}, {"t": "2018-08-01", "y": 68312.1}, {"t": "2018-07-01", "y": 80395.3}, {"t": "2018-06-01", "y": 48927.5}, {"t": "2018-05-01", "y": 41278.7}, {"t": "2018-04-01", "y": 42779.5}, {"t": "2018-03-01", "y": 46028.2}, {"t": "2018-02-01", "y": 53395.7}, {"t": "2018-01-01", "y": 77566.8}, {"t": "2017-12-01", "y": 78066.9}, {"t": "2017-11-01", "y": 41915.2}, {"t": "2017-10-01", "y": 39774.5}, {"t": "2017-09-01", "y": 45842.9}, {"t": "2017-08-01", "y": 54028.7}, {"t": "2017-07-01", "y": 60840.1}, {"t": "2017-06-01", "y": 60285.4}, {"t": "2017-05-01", "y": 42879.6}, {"t": "2017-04-01", "y": 49108.3}, {"t": "2017-03-01", "y": 48616.9}, {"t": "2017-02-01", "y": 53271.0}, {"t": "2017-01-01", "y": 63178.7}, {"t": "2016-12-01", "y": 61843.7}, {"t": "2016-11-01", "y": 42991.3}, {"t": "2016-10-01", "y": 42084.5}, {"t": "2016-09-01", "y": 31643.9}, {"t": "2016-08-01", "y": 38791.9}, {"t": "2016-07-01", "y": 45166.1}, {"t": "2016-06-01", "y": 40152.8}, {"t": "2016-05-01", "y": 25230.2}, {"t": "2016-04-01", "y": 31671.3}, {"t": "2016-03-01", "y": 34000.4}, {"t": "2016-02-01", "y": 40013.1}, {"t": "2016-01-01", "y": 46993.3}, {"t": "2015-12-01", "y": 43874.7}, {"t": "2015-11-01", "y": 34465.8}, {"t": "2015-10-01", "y": 30924.8}, {"t": "2015-09-01", "y": 25387.8}, {"t": "2015-08-01", "y": 30918.1}, {"t": "2015-07-01", "y": 37657.1}, {"t": "2015-06-01", "y": 46953.2}, {"t": "2015-05-01", "y": 93361.6}, {"t": "2015-04-01", "y": 192714.0}]}]}, "options": {"maintainAspectRatio": false, "plugins": {"zoom": {"pan": {"enabled": false}, "zoom": {"enabled": true, "mode": "x", "drag": true}}}, "scales": {"yAxes": [{"ticks": {"suggestedMin": 0}}], "xAxes": [{"type": "time", "distribution": "linear", "ticks": {"min": "2018-01-01"}, "time": {"tooltipFormat": "MMMM YYYY", "unit": "month"}}]}}}, "reviewsChart": {"type": "horizontalBar", "data": {"labels": ["Critics", "Users"], "datasets": [{"label": "Positive", "backgroundColor": "#54cc74", "barPercentage": 1, "categoryPercentage": 0.7, "data": [89.47, 64.36]}, {"label": "Mixed", "backgroundColor": "#cde368", "barPercentage": 1, "categoryPercentage": 0.7, "data": [10.53, 18.04]}, {"label": "Negative", "backgroundColor": "#d64545", "barPercentage": 1, "categoryPercentage": 0.7, "data": [0.0, 17.6]}]}, "options": {"title": {"display": true, "position": "top", "text": "Critic and user scores (%)"}, "legend": {"position": "right"}, "maintainAspectRatio": false, "scales": {"xAxes": [{"stacked": true, "ticks": {"max": 100}}], "yAxes": [{"stacked": true}]}}}}')
+
+// Chartjs timeseries charts
+
+
+var steamChart = new Chart(document.getElementById("steamChart").getContext("2d"), chartjs_data["steamChart"]);  
+
+
+
+var twitchChart = new Chart(document.getElementById("twitchChart").getContext("2d"), chartjs_data["twitchChart"]);  
+
+
+
+var redditChart = new Chart(document.getElementById("redditChart").getContext("2d"), chartjs_data["redditChart"]); 
+
+
+// Chartjs review bar charts
+
+
+var chartjs_data_reviews = chartjs_data["reviewsChart"]
+chartjs_data_reviews.options.tooltips = {
+  mode: 'label', 
+  intersect: false,
+  callbacks: {
+    label: function(t, d) {
+      var dstLabel = d.datasets[t.datasetIndex].label;
+      var xLabel = t.xLabel;
+      return dstLabel + ': ' + xLabel + '%';
+    }
+  }
+}
+
+var reviewsChart = new Chart(document.getElementById('reviewChart').getContext('2d'), chartjs_data_reviews)
+
+
+
+</script>
+
+</html>
